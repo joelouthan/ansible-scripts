@@ -1,0 +1,19 @@
+---
+- hosts: all
+  remote_user: jlouthan
+  become: yes
+  become_method: sudo
+  tasks:
+      - name: Change password
+        user: name={{  item.name  }} password={{  item.pass  }}#
+        with_items:
+           - { name: 'username', pass: '$6$rounds=656000$Vm30Wg4W5Tb0RxpW$OotJRNf7puGlal.H4bV6mi/aABzB5k/TI8.A0lrfnySBUtTu5uTU/CtkX.beqE3gJm3lcs1GJ5IrN/bJDM4G.0' }
+
+      - name: Unlock account
+        command: passwd -u username
+
+      - name: Unexpire account
+        command: "chage -I 30 -M 60 -E -1 username"
+
+#      - name: Copy authorized_keys
+#        copy: src=authkeys/username dest=/home/username/.ssh/authorized_keys owner=username group=username mode="u+rwx,g-rwx,o-rwx"

@@ -1,0 +1,16 @@
+---
+- hosts: ws1:phantom:wraith
+  remote_user: jlouthan
+  become: yes
+  become_method: sudo
+
+  tasks:
+        - name: Create .ssh dirs
+          file: path=/home/{{  item  }}/.ssh state=directory owner={{  item  }} group={{  item  }} mode=0700
+          with_items:
+            - jburns
+
+        - name: Copy authkeys
+          copy: src=pubkeys/{{  item  }}/id_rsa.pub dest=/home/{{  item  }}/.ssh/id_rsa.pub owner={{  item  }} group={{  item  }} mode=0600
+          with_items:
+            - jburns
