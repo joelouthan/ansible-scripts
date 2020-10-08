@@ -1,6 +1,6 @@
 ---
 - hosts: ws1
-  remote_user: jlouthan
+  remote_user: username
   become: yes
   become_method: sudo
   vars:
@@ -10,7 +10,7 @@
 
   tasks:
       - name: Create account
-        user: name=bwilliams shell=/bin/bash groups= home=/home/bwilliams/
+        user: name=username shell=/bin/bash groups= home=/home/username/
 
       - name: Expire account
-        command: "chage -I 30 -M 60 bwilliams"
+        command: "chage -I 30 -M 60 username"

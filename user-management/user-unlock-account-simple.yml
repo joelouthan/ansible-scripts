@@ -1,6 +1,6 @@
 ---
 - hosts: vm6
-  remote_user: jlouthan
+  remote_user: username
   become: yes
   become_method: sudo
   vars:
@@ -8,10 +8,10 @@
   
   tasks:
       - name: Reset password
-        user: name=bwilliams password={{ password }}
+        user: name=username password={{ password }}
 
       - name: Unlock account
-        command: passwd -u bwilliams
+        command: passwd -u username
 
       - name: Unexpire account
-        command: "chage -I -1 -M -1 -E -1 bwilliams"
+        command: "chage -I -1 -M -1 -E -1 username"

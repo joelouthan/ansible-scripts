@@ -2,7 +2,7 @@
 # Displays a list of files in current directory and prompt for which
 # file to edit
 
-dirPlay='/home/jlouthan/Playbooks'
+dirPlay='/home/username/Playbooks'
 menu="$dirPlay/menuGCC.txt"
 
 ls -1 $dirPlay | grep yml | grep IT > $menu

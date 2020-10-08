@@ -1,8 +1,8 @@
 ---
 - hosts: all
-  remote_user: jlouthan
+  remote_user: username
   tasks:
       - name: Grant read only access to /var/log contents
-        command: "setfacl -R -m u:secops:r-- /var/log/"
+        command: "setfacl -R -m u:username:r-- /var/log/"
         become: yes
         become_method: sudo

@@ -1,30 +1,31 @@
 ---
 - hosts: all
-  remote_user: jlouthan
+  remote_user: username
   become: yes
   become_method: sudo
 
   tasks:
       - name: Delete the old miriumwheel group 
-        group: name=miriumwheel state=absent
+        group: name=groupname state=absent
 
-      - name: Add mirumwheel group
-        group: name=mirumwheel state=present
+      - name: Add groupname group
+        group: name=groupname state=present
 
-      - name: Add the Mirum guys to mirumwheel group
-        user: name={{  item  }} state=present groups=mirumwheel 
+      - name: Add the username guys to groupname group
+        user: name={{  item  }} state=present groups=groupname 
         with_items:
-               - bbeecroft
-               - mhiivala
-               - kchu
-               - kmasud
-               - rchavez
-
+               - username
+               - username
+               - username
+               - username
+               - username
+               - username
+               
       - name: Remove line with miriumwheel in it
         lineinfile: dest=/etc/sudoers state=absent regexp="miriumwheel"
 
       - name: Add a new line with comment
-        lineinfile: "dest=/etc/sudoers state=present line='#Adding the mirumwheel group for the Mirum SysAdmins'"
+        lineinfile: "dest=/etc/sudoers state=present line='#Adding the groupname group for the username SysAdmins'"
 
-      - name: Adding mirumwheel line
-        lineinfile: "dest=/etc/sudoers state=present line='%mirumwheel  ALL=(ALL)       ALL'"
+      - name: Adding groupname line
+        lineinfile: "dest=/etc/sudoers state=present line='%groupname  ALL=(ALL)       ALL'"

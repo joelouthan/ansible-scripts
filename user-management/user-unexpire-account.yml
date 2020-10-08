@@ -1,11 +1,11 @@
 ---
 - hosts: all
-  remote_user: jlouthan
+  remote_user: username
   become: yes
   become_method: sudo
   tasks:
       - name: Unlock account
-        command: passwd -u bwilliams
+        command: passwd -u username
 
       - name: Expire account
-        command: "chage -I 30 -M 60 -E -1 bwilliams"
+        command: "chage -I 30 -M 60 -E -1 username"

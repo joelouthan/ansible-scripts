@@ -1,27 +1,27 @@
 ---
 - hosts: ws1:db
-  remote_user: jlouthan
+  remote_user: username
   become: yes
   become_method: sudo
 
   tasks:
       - name: Create account
-        user: name={{  item  }} shell=/bin/bash home=/home/bwilliams/
+        user: name={{  item  }} shell=/bin/bash home=/home/username/
         with_items:
-            - bwilliams
+            - username
 
       - name: Expire account
-        command: "chage -I 30 -M 60 bwilliams"
+        command: "chage -I 30 -M 60 username"
 
       - name: Create .ssh directory
         file: path=/home/{{  item  }}/.ssh/ state=directory mode=0700 owner={{  item  }} group={{  item  }}
         with_items:
-            - bwilliams
+            - username
 
       - name: Copy authkeys to .ssh dirs
         copy: src=authkeys/{{  item  }} dest=/home/{{  item  }}/.ssh/authorized_keys owner={{  item  }} group={{  item  }} mode=0700
         with_items:
-            - bwilliams
+            - username
 
       - name: Adding developer group
         group: name=developer state=present
@@ -29,4 +29,4 @@
       - name: Add user to developer group
         user: name={{  item  }} groups=developer
         with_items:
-            - bwilliams
+            - username

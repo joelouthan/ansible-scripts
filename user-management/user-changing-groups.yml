@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  remote_user: jlouthan
+  remote_user: username
   become: yes
   become_method: sudo
 
@@ -8,17 +8,17 @@
       - name: Add wheel group
         group: name=wheel state=present
 
-      - name: Clean up mirumwheel group
-        group: name=mirumwheel state=absent
+      - name: Clean up groupname group
+        group: name=groupname state=absent
 
       - name: Add the SysAdmins/Security to wheel group
         user: name={{  item  }} state=present groups=wheel
         with_items:
-               - jlouthan
+               - username
                - jbyers
-               - jatkins
+               - username
                - dhalliyur
-               - secops
+               - username
 
       - name: Adding wheel line to sudoers
         lineinfile: "dest=/etc/sudoers state=present line='%wheel  ALL=(ALL)       ALL'"

@@ -1,6 +1,6 @@
 ---
 - hosts: web:db:internal
-  remote_user: jlouthan
+  remote_user: username
   become: yes
   become_method: sudo
 
@@ -11,19 +11,19 @@
         - name: Create users
           user: name={{  item.name  }} state=present password={{  item.pass  }}  shell='/bin/bash' append=yes groups=devs
           with_items:
-                 - { name: 'ksain' , pass: '$6$rounds=656000$4lIYx7DL2AKRyR4S$GJqDsT0jlHmdB2D6vtAVGS4O5VmmhEBWxu21a.dSpbRF9ajsosoO4mHbRfdgeuzPmWPXhe9gITiUfAC2/uxCW1' }
+                 - { name: 'username' , pass: '$6$rounds=656000$4lIYx7DL2AKRyR4S$GJqDsT0jlHmdB2D6vtAVGS4O5VmmhEBWxu21a.dSpbRF9ajsosoO4mHbRfdgeuzPmWPXhe9gITiUfAC2/uxCW1' }
 
         - name: Expire account
           command: "chage -I 30 -M 60 {{  item  }}"
           with_items:
-            - ksain
+            - username
 
         - name: Create .ssh directory
           file: path=/home/{{  item  }}/.ssh/ state=directory mode=0700 owner={{  item  }} group={{  item  }}
           with_items:
-            - ksain
+            - username
 
         - name: Copy authkeys to .ssh dirs
           copy: src=authkeys/{{  item  }} dest=/home/{{  item  }}/.ssh/authorized_keys owner={{  item  }} group={{  item  }} mode=0600
           with_items:
-            - ksain
+            - username

@@ -1,9 +1,9 @@
 ---
 - hosts: all
-  remote_user: jlouthan
+  remote_user: username
   become: yes
   become_method: sudo
 
   tasks:
       - name: Rename home dir
-        command: mv /home/ckemp /home/ckemp.old        
+        command: mv /home/username /home/username.old        

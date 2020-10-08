@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  remote_user: jlouthan
+  remote_user: username
   become: yes
   become_method: sudo
 
@@ -13,19 +13,19 @@
         - name: Create users
           user: name={{  item.name  }} state=present groups=wheel password={{  item.pass  }}  shell='/bin/bash'
           with_items:
-                 - { name: 'jatkins' , pass: '$6$rounds=656000$.uT5NtRnQB7sQokU$n/zlS8ObgAipDWZ7fAW4r3.2f6hRvNMnrxRYQtGrKfttjD0y/aENeam2IG4ahd0Q295m2hWhigeQ62cpPPjjg.' }
+                 - { name: 'username' , pass: '$6$rounds=656000$.uT5NtRnQB7sQokU$n/zlS8ObgAipDWZ7fAW4r3.2f6hRvNMnrxRYQtGrKfttjD0y/aENeam2IG4ahd0Q295m2hWhigeQ62cpPPjjg.' }
                 
         - name: Expire account
           command: 'chage -I 30 -M 60 -E -1 {{  item  }}'
           with_items:
-            - jatkins
+            - username
 
         - name: Create .ssh directory
           file: path=/home/{{  item  }}/.ssh/ state=directory mode=0700 owner={{  item  }} group={{  item  }}
           with_items:
-            - jatkins
+            - username
 
         - name: Copy authkeys to .ssh dirs
           copy: src=authkeys/{{  item  }} dest=/home/{{  item  }}/.ssh/authorized_keys owner={{  item  }} group={{  item  }} mode=0600
           with_items:
-            - jatkins
+            - username
