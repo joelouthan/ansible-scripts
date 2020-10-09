@@ -1,0 +1,10 @@
+!/usr/bin/expect
+ 
+set timeout 10
+set password PASSWORD
+spawn ssh <command> echo $KEY >> /home/awxsvc/.ssh/authorized_keys
+
+expect "Password:"
+send "$password\r"
+expect "Last Login"
+exit
