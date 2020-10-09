@@ -6,6 +6,22 @@
   become_method: sudo
 
   tasks:
+  - name: Copy RHEL8 repo files
+    copy:
+      dest: /path/to/file
+      content: |
+        [name]
+        name=
+        baseurl=
+        enabled=1
+        gpgcheck=1
+        gpgkey=
+
+  - name: Install subscription-manager
+    yum:
+      name: subscription-manager
+      state: present
+
   - name: Install Katello Consumer RPM
     yum:
       name: url
