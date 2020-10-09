@@ -1,17 +1,18 @@
 ---
-hosts: all
-remote_user: username
-become: yes
-become_method: sudo
-vars:
-  password: $6$rounds=656000$S1s6aBDIxgiDN2RI$vhhXHFu.aqDNrJCu36qMLtP8S0usEbZi21zxF4ui6S5zv6Ctb1ktt3UxDv8F16ZVBILTEqK7.0TGXAwAYCN0j0
-  # created with
-  # python -c "from passlib.hash import sha512_crypt; import getpass; print sha512_crypt.encrypt(getpass.getpass())"
+- hosts: all
+  remote_user: username
+  become: yes
+  become_method: sudo
+  
+  vars:
+    password: $6$rounds=656000$S1s6aBDIxgiDN2RI$vhhXHFu.aqDNrJCu36qMLtP8S0usEbZi21zxF4ui6S5zv6Ctb1ktt3UxDv8F16ZVBILTEqK7.0TGXAwAYCN0j0
+    # created with
+    # python -c "from passlib.hash import sha512_crypt; import getpass; print sha512_crypt.encrypt(getpass.getpass())"
 
-tasks:
-- name: Create account
-  user: name=username shell=/bin/bash groups= home=/home/username/
-
-- name: Expire account
-  command: "chage -I 30 -M 60 username"
+- tasks:
+  - name: Create account
+    user: name=username shell=/bin/bash groups= home=/home/username/
+  
+  - name: Expire account
+    command: "chage -I 30 -M 60 username"
 ...

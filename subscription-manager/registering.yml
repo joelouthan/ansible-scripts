@@ -1,0 +1,19 @@
+---
+- name: "Playbook: Registering systems to Satellite"
+  hosts: all
+  remote_user: username
+  become: yes
+  become_method: sudo
+
+  tasks:
+  - name: Install Katello Consumer RPM
+    yum:
+      name: url
+      state: present
+
+  - name: Register system with Satellite
+    redhat_subscription:
+      state: present
+      activationkey: 1-222333444
+      org_id: 222333444
+      pool: '^(Red Hat Enterprise Server|Red Hat Virtualization)$'

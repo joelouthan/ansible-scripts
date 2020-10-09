@@ -1,10 +1,10 @@
 ---
-hosts: all
-remote_user: username
-become: yes
-become_method: sudo
+- hosts: all
+  remote_user: username
+  become: yes
+  become_method: sudo
 
-tasks:
-- name: Grant read only access to /var/log contents
-  command: "setfacl -R -m u:username:r-- /var/log/"
+- tasks:
+  - name: Grant read only access to /var/log contents
+    command: "setfacl -R -m u:username:r-- /var/log/"
 ...

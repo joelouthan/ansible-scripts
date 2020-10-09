@@ -1,14 +1,14 @@
 ---
-hosts: all
-remote_user: username
-become: yes
-become_method: sudo
+- hosts: all
+  remote_user: username
+  become: yes
+  become_method: sudo
 
-tasks:
-- name: Add username to sudoers
-  replace:
-    path: /etc/sudoers
-    regexp: 'name'
-    replace: 'name1, name2'
-    backup: yes
+- tasks:
+  - name: Add username to sudoers
+    replace:
+      path: /etc/sudoers
+      regexp: 'name'
+      replace: 'name1, name2'
+      backup: yes
 ...

@@ -1,35 +1,35 @@
 ---
-hosts: all
-remote_user: username
-become: yes
-become_method: sudo
+- hosts: all
+  remote_user: username
+  become: yes
+  become_method: sudo
 
-tasks:
-- name: Create group
-  group: name=qa state=present
-
-- name: Create users
-  user: name={{  item.name  }} state=present password={{  item.pass  }}  shell='/bin/bash' append=yes groups=qa
-  with_items:
-  - { name: 'username' , pass: '$6$rounds=656000$ouOmnulwV8BClK7i$D3QNKaaRvkFP3CH2m5PfzsGcjDu3GGF51cLHgB8vMFTgaXkdSnKPHokWPIx8OsAms7W.b4Fxstmd42Mcj9f1d.' }
-  # created with
-  # python -c "from passlib.hash import sha512_crypt; import getpass; print sha512_crypt.encrypt(getpass.getpass())"
-
-- name: Expire account
-  command: "chage -I 30 -M 60 {{  item  }}"
-  with_items:
-  - username1
-  - username2
-
-- name: Create .ssh directory
-  file: path=/home/{{  item  }}/.ssh/ state=directory mode=0700 owner={{  item  }} group={{  item  }}
-  with_items:
-  - username1
-  - username2
-
-- name: Copy authkeys to .ssh dirs
-  copy: src=authkeys/{{  item  }} dest=/home/{{  item  }}/.ssh/authorized_keys owner={{  item  }} group={{  item  }} mode=0600
-  with_items:
-  - username1
-  - username2
+- tasks:
+  - name: Create group
+    group: name=qa state=present
+  
+  - name: Create users
+    user: name={{  item.name  }} state=present password={{  item.pass  }}  shell='/bin/bash' append=yes groups=qa
+    with_items:
+    - { name: 'username' , pass: '$6$rounds=656000$ouOmnulwV8BClK7i$D3QNKaaRvkFP3CH2m5PfzsGcjDu3GGF51cLHgB8vMFTgaXkdSnKPHokWPIx8OsAms7W.b4Fxstmd42Mcj9f1d.' }
+    # created with
+    # python -c "from passlib.hash import sha512_crypt; import getpass; print sha512_crypt.encrypt(getpass.getpass())"
+  
+  - name: Expire account
+    command: "chage -I 30 -M 60 {{  item  }}"
+    with_items:
+    - username1
+    - username2
+  
+  - name: Create .ssh directory
+    file: path=/home/{{  item  }}/.ssh/ state=directory mode=0700 owner={{  item  }} group={{  item  }}
+    with_items:
+    - username1
+    - username2
+  
+  - name: Copy authkeys to .ssh dirs
+    copy: src=authkeys/{{  item  }} dest=/home/{{  item  }}/.ssh/authorized_keys owner={{  item  }} group={{  item  }} mode=0600
+    with_items:
+    - username1
+    - username2
 ...

@@ -1,8 +1,8 @@
 ---
-hosts: all
-remote_user: username
+- hosts: all
+  remote_user: username
 
-tasks: 
-- name: Test connection
-  ping: 
+- tasks: 
+  - name: Test connection
+    ping: 
 ...

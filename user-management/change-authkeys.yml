@@ -1,16 +1,16 @@
 ---
-hosts: all
-remote_user: username
-become: yes
-become_method: sudo
+- hosts: all
+  remote_user: username
+  become: yes
+  become_method: sudo
 
-tasks:
-- name: Remove current authkey file
-  file: path=/home/username/.ssh/authorized_keys state=absent
-
-- name: Copy authkeys to .ssh dirs
-  copy: src=authkeys/{{  item  }} dest=/home/{{  item  }}/.ssh/authorized_keys owner={{  item  }} group={{  item  }} mode=0600
-  with_items:
-  - username1
-  - username2
+- tasks:
+  - name: Remove current authkey file
+    file: path=/home/username/.ssh/authorized_keys state=absent
+  
+  - name: Copy authkeys to .ssh dirs
+    copy: src=authkeys/{{  item  }} dest=/home/{{  item  }}/.ssh/authorized_keys owner={{  item  }} group={{  item  }} mode=0600
+    with_items:
+    - username1
+    - username2
 ...
