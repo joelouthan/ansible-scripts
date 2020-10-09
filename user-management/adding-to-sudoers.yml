@@ -18,7 +18,7 @@
     - username2
     
   - name: Remove line with miriumwheel in it
-    lineinfile: dest=/etc/sudoers state=absent regexp="miriumwheel"
+    lineinfile: dest=/etc/sudoers state=absent regexp="groupname"
   
   - name: Add a new line with comment
     lineinfile: "dest=/etc/sudoers state=present line='#Adding the groupname group for the username SysAdmins'"
