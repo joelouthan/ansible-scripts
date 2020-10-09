@@ -1,8 +1,8 @@
 ---
 hosts: all
 remote_user: username
-#become: yes
-#become_method: sudo
+
 tasks: 
-        - name: Test connection
-          ping: 
+- name: Test connection
+  ping: 
+...
