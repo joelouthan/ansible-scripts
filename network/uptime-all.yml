@@ -1,10 +1,10 @@
 ---
 hosts: all
-  remote_user: username
-  become: yes
-  become_method: sudo
+remote_user: username
+become: yes
+become_method: sudo
 
-  tasks:
+tasks:
       - name:  Get Disk Space information on all mounts
         shell: 'uptime'
         register: uptime

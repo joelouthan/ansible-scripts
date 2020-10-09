@@ -1,29 +1,35 @@
 ---
 hosts: all
-  remote_user: username
-  become: yes
-  become_method: sudo
+remote_user: username
+become: yes
+become_method: sudo
 
-  tasks:
-#        - name: Create group
-#          group: name= state=present
+tasks:
+- name: Create group
+  group: name= state=present
 
-        - name: Create users
-          user: name={{  item.name  }} state=present password={{  item.pass  }}  shell='/bin/bash' append=yes groups=devs
-          with_items:
-                 - { name: 'username' , pass: '$6$rounds=656000$4lIYx7DL2AKRyR4S$GJqDsT0jlHmdB2D6vtAVGS4O5VmmhEBWxu21a.dSpbRF9ajsosoO4mHbRfdgeuzPmWPXhe9gITiUfAC2/uxCW1' }
+- name: Create users
+  user: name={{  item.name  }} state=present password={{  item.pass  }}  shell='/bin/bash' append=yes groups=devs
+  with_items:
+  - { name: 'username' , pass: '$6$rounds=656000$4lIYx7DL2AKRyR4S$GJqDsT0jlHmdB2D6vtAVGS4O5VmmhEBWxu21a.dSpbRF9ajsosoO4mHbRfdgeuzPmWPXhe9gITiUfAC2/uxCW1' }
+  # created with
+  # python -c "from passlib.hash import sha512_crypt; import getpass; print sha512_crypt.encrypt(getpass.getpass())"
 
-        - name: Expire account
-          command: "chage -I 30 -M 60 {{  item  }}"
-          with_items:
-            - username
+- name: Expire account
+  command: "chage -I 30 -M 60 {{  item  }}"
+  with_items:
+  - username1
+  - username2
 
-        - name: Create .ssh directory
-          file: path=/home/{{  item  }}/.ssh/ state=directory mode=0700 owner={{  item  }} group={{  item  }}
-          with_items:
-            - username
+- name: Create .ssh directory
+  file: path=/home/{{  item  }}/.ssh/ state=directory mode=0700 owner={{  item  }} group={{  item  }}
+  with_items:
+  - username1
+  - username2
 
-        - name: Copy authkeys to .ssh dirs
-          copy: src=authkeys/{{  item  }} dest=/home/{{  item  }}/.ssh/authorized_keys owner={{  item  }} group={{  item  }} mode=0600
-          with_items:
-            - username
+- name: Copy authkeys to .ssh dirs
+  copy: src=authkeys/{{  item  }} dest=/home/{{  item  }}/.ssh/authorized_keys owner={{  item  }} group={{  item  }} mode=0600
+  with_items:
+  - username1
+  - username2
+...

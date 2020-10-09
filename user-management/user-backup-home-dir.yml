@@ -1,9 +1,10 @@
 ---
 hosts: all
-  remote_user: username
-  become: yes
-  become_method: sudo
+remote_user: username
+become: yes
+become_method: sudo
 
-  tasks:
-      - name: Rename home dir
-        command: mv /home/username /home/username.old        
+tasks:
+- name: Rename home dir
+  command: mv /home/username /home/username.old        
+...

@@ -1,16 +1,13 @@
 ---
 hosts: all
-  remote_user: username
-  become: yes
-  become_method: sudo
-  tasks:
-      - name: Remove keys
-        command: "rm -f /home/{{ item }}/.ssh/authorized_keys"
-        with_items:
-              - username
-              - username
-              - username
-              - username
-        remote_user: username
-        become: yes
-        become_method: sudo 
+remote_user: username
+become: yes
+become_method: sudo
+  
+tasks:
+- name: Remove keys for multiple users
+  command: "rm -f /home/{{ item }}/.ssh/authorized_keys"
+  with_items:
+  - username1
+  - username2
+...

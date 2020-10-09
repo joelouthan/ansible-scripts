@@ -1,9 +1,10 @@
 ---
 hosts: all
-  remote_user: username
-  become: yes
-  become_method: sudo
+remote_user: username
+become: yes
+become_method: sudo
 
-  tasks:
-      - name: Remove user from secondary groups
-        user: name=username groups=
+tasks:
+- name: Remove user from secondary groups
+  user: name=username groups=secondarygroups
+...

@@ -1,11 +1,13 @@
 ---
 hosts: all
-  remote_user: username
-  tasks:
-      - name: Check usernames
-        command: grep bahamat /etc/passwd
-        register: wheel
-        become: yes
-        become_method: sudo
+remote_user: username
+become: yes
+become_method: sudo
 
-      - debug: var=wheel.stdout_lines
+tasks:
+- name: Check usernames
+  command: grep username /etc/passwd
+  register: wheel
+
+- debug: var=wheel.stdout_lines
+...
