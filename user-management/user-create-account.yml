@@ -1,5 +1,5 @@
 ---
-- hosts: vm6
+hosts: all
   remote_user: username
   become: yes
   become_method: sudo

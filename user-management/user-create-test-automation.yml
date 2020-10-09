@@ -1,5 +1,5 @@
 ---
-- hosts: ws1:test-automation
+hosts: all
   remote_user: username
   become: yes
   become_method: sudo

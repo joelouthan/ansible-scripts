@@ -1,5 +1,5 @@
 ---
-- hosts: all
+hosts: all
   remote_user: username
   tasks:
       - name: Grant read only access to /var/log contents
