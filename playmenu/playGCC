@@ -3,7 +3,7 @@
 # file to edit
 
 dirPlay='/home/username/Playbooks'
-menu="$dirPlay/menuGCC.txt"
+menu="$dirPlay/menu-conpliancy.txt"
 
 ls -1 $dirPlay | grep yml | grep IT > $menu
 
