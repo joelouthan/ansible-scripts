@@ -12,7 +12,7 @@ Really basic **bash** scripts that menu drive execution of large amounts of scri
 
 ## [subscription-manager](subscription-manager)
 
-How to register system to Red Hat Subscription Manager.
+Registering system to Red Hat Subscription Manager.
 
 ## [user-management](user-management)
 Ansible scripts to manage local users on Linux systems.
