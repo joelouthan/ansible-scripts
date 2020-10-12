@@ -4,7 +4,7 @@
   become: yes
   become_method: sudo
 
-- tasks:
+  tasks:
   - name: Add username to sudoers
     replace:
       path: /etc/sudoers

@@ -4,7 +4,7 @@
   become: yes
   become_method: sudo
   
-- tasks:
+  tasks:
   - name: Lock password (Note - this doesn't prevent SSHKey access)
     command: passwd -l {{ item }}
     with_items:

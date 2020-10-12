@@ -4,7 +4,7 @@
   become: yes
   become_method: sudo
 
-- tasks:
+  tasks:
   - name: Check usernames
     command: grep username /etc/passwd
     register: wheel

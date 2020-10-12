@@ -4,7 +4,7 @@
   become: yes
   become_method: sudo
   
-- tasks:
+  tasks:
   - name: Create account
     user: name=username shell=/bin/bash groups=sudo home=/home/username/
   

@@ -4,7 +4,7 @@
   become: yes
   become_method: sudo
 
-- tasks:
+  tasks:
   - name: Rename home dir
     command: mv /home/username /home/username.old        
 ...

@@ -4,7 +4,7 @@
   become: yes
   become_method: sudo
 
-- tasks:
+  tasks:
   - name: Add wheel group
     group: name=wheel state=present
   

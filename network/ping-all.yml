@@ -2,7 +2,7 @@
 - hosts: all
   remote_user: ansible_user
 
-- tasks: 
+  tasks: 
   - name: Test connection
     ping: 
 ...

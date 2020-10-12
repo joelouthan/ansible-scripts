@@ -4,7 +4,7 @@
   become: yes
   become_method: sudo
 
-- tasks:
+  tasks:
   - name: Delete the old groupname group 
     group: name=groupname state=absent
   

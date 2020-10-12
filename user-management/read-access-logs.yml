@@ -4,7 +4,7 @@
   become: yes
   become_method: sudo
 
-- tasks:
+  tasks:
   - name: Grant read only access to /var/log contents
     command: "setfacl -R -m u:username:r-- /var/log/"
 ...

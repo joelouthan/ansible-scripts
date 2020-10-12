@@ -9,7 +9,7 @@
     # created with
     # python -c "from passlib.hash import sha512_crypt; import getpass; print sha512_crypt.encrypt(getpass.getpass())"
 
-- tasks:
+  tasks:
   - name: Create account
     user: name=username shell=/bin/bash groups= home=/home/username/
   
