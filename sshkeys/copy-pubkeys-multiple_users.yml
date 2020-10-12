@@ -5,14 +5,18 @@
   become_method: sudo
   
   tasks:
-  - name: Remove current authkey file
+  - name: Set authorized key took from file
     authorized_key:
       user: "{{ item }}"
       state: present
+      key: "{{ lookup('file', '/home/{{ item }}/.ssh/id_rsa.pub') }}"
     loop:
     - username1
     - username2
-    
+  
+  ## If your users don't have accounts on the control node itself, my suggestion
+  ## is to create a subdirectory 'pubkeys' and then place the pubkeys in that dir
+  ## as username1.pub, username2.pub, etc..
   - name: Set authorized key took from file
     authorized_key:
       user: "{{ item }}"

@@ -1,19 +1,16 @@
 ---
-hosts: all
-remote_user: ansible_user
-become: yes
-become_method: sudo
-
-tasks:
-- name: Create .ssh directory
-  file: path=/home/{{  item  }}/.ssh/ state=directory mode=0700 owner={{  item  }} group={{  item  }}
-  with_items:
-  - username1
-  - username2
-
-- name: Copy authkeys to .ssh dirs
-  copy: src=authkeys/{{  item  }} dest=/home/{{  item  }}/.ssh/authorized_keys owner={{  item  }} group={{  item  }} mode="u+rwx,g-rwx,o-rwx"
-  with_items:
-  - username1
-  - username2
+- hosts: all
+  remote_user: ansible_user
+  become: yes
+  become_method: sudo
+  
+  tasks:
+  - name: Set authorized key took from file
+    authorized_key:
+      user: "{{ item }}"
+      state: present
+      key: "{{ lookup('file', 'pubkeys/{{ item }}.pub') }}"
+    loop:
+    - username1
+    - username2
 ...

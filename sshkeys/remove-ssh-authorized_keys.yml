@@ -1,13 +1,15 @@
 ---
-hosts: all
-remote_user: ansible_user
-become: yes
-become_method: sudo
-  
-tasks:
-- name: Remove keys for multiple users
-  command: "rm -f /home/{{ item }}/.ssh/authorized_keys"
-  with_items:
-  - username1
-  - username2
+- hosts: all
+  remote_user: ansible_user
+  become: yes
+  become_method: sudo
+    
+  tasks:
+  - name: Remove keys for multiple users
+    authorized_key:
+      user: "{{ item }}"
+      state: absent
+    loop:
+    - username1
+    - username2
 ...

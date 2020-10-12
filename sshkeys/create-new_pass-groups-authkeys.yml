@@ -11,27 +11,29 @@
       state: present
   
   - name: Create users
-    user: name={{  item.name  }} state=present groups=wheel password={{  item.pass  }}  shell='/bin/bash'
-    with_items:
+    user: 
+      name={{  item.name  }}
+      state=present
+      groups=wheel
+      password={{  item.pass  }} 
+      shell='/bin/bash'
+    loop:
     - { name: 'username' , pass: '$6$rounds=656000$.uT5NtRnQB7sQokU$n/zlS8ObgAipDWZ7fAW4r3.2f6hRvNMnrxRYQtGrKfttjD0y/aENeam2IG4ahd0Q295m2hWhigeQ62cpPPjjg.' }
     # created with
     # python -c "from passlib.hash import sha512_crypt; import getpass; print sha512_crypt.encrypt(getpass.getpass())"
     
   - name: Expire account
     command: 'chage -I 30 -M 60 -E -1 {{  item  }}'
-    with_items:
+    loop:
     - username1
     - username2
   
-  - name: Create .ssh directory
-    file: path=/home/{{  item  }}/.ssh/ state=directory mode=0700 owner={{  item  }} group={{  item  }}
-    with_items:
-    - username1
-    - username2
-  
-  - name: Copy authkeys to .ssh dirs
-    copy: src=authkeys/{{  item  }} dest=/home/{{  item  }}/.ssh/authorized_keys owner={{  item  }} group={{  item  }} mode=0600
-    with_items:
+  - name: Set authorized key took from file
+    authorized_key:
+      user: "{{ item }}"
+      state: present
+      key: "{{ lookup('file', 'pubkeys/{{ item }}.pub') }}"
+    loop:
     - username1
     - username2
 ...
