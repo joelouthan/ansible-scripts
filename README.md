@@ -10,6 +10,10 @@ Basic Ansible scripts to ping and uptime hosts.
 
 Really basic **bash** scripts that menu drive execution of large amounts of scripts. 
 
+## [sshkeys](sshkeys)
+
+Scripts to manage sshkeys
+
 ## [subscription-manager](subscription-manager)
 
 Registering system to Red Hat Subscription Manager.
