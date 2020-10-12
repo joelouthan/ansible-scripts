@@ -11,9 +11,8 @@ tasks:
   - username1
   - username2
 
-- name: Copy authkeys
-  copy: src=pubkeys/{{  item  }}/id_rsa.pub dest=/home/{{  item  }}/.ssh/id_rsa.pub owner={{  item  }} group={{  item  }} mode=0600
-  with_items:
+- name: Copy authkeys copy: src=pubkeys/{{ item }}/id_rsa.pub dest=/home/{{ item }}/.ssh/authorized_keys owner={{ item }} group={{ item }} mode=0600
+  with_items: 
   - username1
   - username2
 ...
