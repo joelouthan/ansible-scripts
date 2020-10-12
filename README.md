@@ -23,5 +23,7 @@ Ansible scripts to manage local users on Linux systems.
 
 ___
 
+## For those playbooks that do not warrant their own directory, please see root of the repo
+
 ### [installing_sssd](installing_sssd)
 Borrowed from the web. (Couldn't quite find their repos.) And wanted to safe keep it on my own repo.
