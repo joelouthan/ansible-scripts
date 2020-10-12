@@ -10,7 +10,7 @@
   
   - name: Change password
     user: name={{  item.name  }} password={{  item.pass  }}
-    with_items:
+    loop:
     - { name: 'username', pass: '$6$rounds=656000$mX/hE/vmdaUeJ7vw$f25iOexQtLIn9xFz/8Zig.Q8ATP089YjJXZqalX8kyUCdkceacgZ0.SZDoXUDWibj9cJ4xzw/k4UB4OTXNGj41' }
     # created with
     # python -c "from passlib.hash import sha512_crypt; import getpass; print sha512_crypt.encrypt(getpass.getpass())"
@@ -20,13 +20,13 @@
                             
   - name: Create .ssh directory
     file: path=/home/{{  item  }}/.ssh/ state=directory mode=0700 owner={{  item  }} group={{  item  }}
-    with_items:
+    loop:
     - username1
     - username2
   
   - name: Copy authkeys to .ssh dirs
     copy: src=authkeys/{{  item  }} dest=/home/{{  item  }}/.ssh/authorized_keys owner={{  item  }} group={{  item  }} mode="u+rwx,g-rwx,o-rwx"
-    with_items:
+    loop:
     - username1
     - username2
 ...

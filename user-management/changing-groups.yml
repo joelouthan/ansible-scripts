@@ -13,7 +13,7 @@
   
   - name: Add the SysAdmins/Security to wheel group
     user: name={{  item  }} state=present groups=wheel
-    with_items:
+    loop:
     - username1
     - username2
   

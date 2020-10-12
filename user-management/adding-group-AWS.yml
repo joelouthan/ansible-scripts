@@ -10,7 +10,7 @@
   
   - name: Change password
     user: name={{  item.name  }} password={{  item.pass  }}
-    with_items:
+    loop:
     - { name: 'username', pass: '$6$rounds=656000$jZbOZ1MJdPU0n$dAK8QsaVXd5PRH3NrQrdF9Xuiv10PWtwElwL/Y2.1evcTi3yvjDcihiqHltjhDKbHbWTNrr0TkT.wgrYI4/' }
   
   - name: Expire account
@@ -18,13 +18,13 @@
                             
   - name: Create .ssh directory
     file: path=/home/{{  item  }}/.ssh/ state=directory mode=0700 owner={{  item  group={{  item  }}
-    with_items:
+    loop:
     - username1
     - username2
   
   - name: Copy authkeys to .ssh dirs
     copy: src=authkeys/{{  item  }} dest=/home/{{  item  }}/.ssh/authorized_keys owne{  item  }} group={{  item  }} mode="u+rwx,g-rwx,o-rwx"
-    with_items:
+    loop:
     - username1
     - username2
 ...

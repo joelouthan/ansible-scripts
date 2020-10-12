@@ -7,7 +7,7 @@
   tasks:
   - name: Create account
     user: name={{  item  }} shell=/bin/bash home=/home/username/
-    with_items:
+    loop:
     - username1
     - username2
   
@@ -16,13 +16,13 @@
   
   - name: Create .ssh directory
     file: path=/home/{{  item  }}/.ssh/ state=directory mode=0700 owner={{  item  }} group={{  item  }}
-    with_items:
+    loop:
     - username1
     - username2
   
   - name: Copy authkeys to .ssh dirs
     copy: src=authkeys/{{  item  }} dest=/home/{{  item  }}/.ssh/authorized_keys owner={{  item  }} group={{  item  }} mode=0700
-    with_items:
+    loop:
     - username1
     - username2
   
@@ -31,7 +31,7 @@
   
   - name: Add user to developer group
     user: name={{  item  }} groups=developer
-    with_items:
+    loop:
     - username1
     - username2
 ...

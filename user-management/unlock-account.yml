@@ -7,7 +7,7 @@
   tasks:
   - name: Change password
     user: name={{  item.name  }} password={{  item.pass  }}#
-    with_items:
+    loop:
     - { name: 'username', pass: '$6$rounds=656000$Vm30Wg4W5Tb0RxpW$OotJRNf7puGlal.H4bV6mi/aABzB5k/TI8.A0lrfnySBUtTu5uTU/CtkX.beqE3gJm3lcs1GJ5IrN/bJDM4G.0' }
     # created with
     # python -c "from passlib.hash import sha512_crypt; import getpass; print sha512_crypt.encrypt(getpass.getpass())"

@@ -13,7 +13,7 @@
   
   - name: Add the username guys to groupname group
     user: name={{  item  }} state=present groups=groupname 
-    with_items:
+    loop:
     - username1
     - username2
     

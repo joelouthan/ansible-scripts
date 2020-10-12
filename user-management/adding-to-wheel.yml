@@ -4,10 +4,10 @@
   become: yes
   become_method: sudo
   
-- tasks:
+  tasks:
   - name: Adding username back to wheel
     user: name={{  item  }} state=present groups=wheel
-    with_items:
+    loop:
     - username1
     - username2
 ...

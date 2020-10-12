@@ -10,7 +10,7 @@
   
   - name: Add user to groupname group
     user: name={{  item  }} groups=qa
-    with_items:
+    loop:
      - username1
      - username2
      - username3
