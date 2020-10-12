@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  remote_user: username
+  remote_user: ansible_user
 
 - tasks: 
   - name: Test connection
