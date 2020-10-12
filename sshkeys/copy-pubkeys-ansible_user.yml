@@ -7,16 +7,16 @@ become_method: sudo
 tasks:
 - name: Create .ssh dirs
   file: path=/home/{{  item  }}/.ssh state=directory owner={{  item  }} group={{  item  }} mode=0700
-  with_items:
+  loop:
   - ansible_user
 
 - name: Copy authkeys
   copy:
-    src=pubkeys/{{ item }}/id_rsa.pub
+    src=pubkeys/{{ item }}.pub
     dest=/home/{{ item }}/.ssh/authorized_keys 
     owner={{ item }} 
     group={{ item }} 
     mode=0600
-  with_items: 
+  loop: 
   - ansible_user
 ...
