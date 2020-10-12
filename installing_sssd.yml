@@ -1,0 +1,174 @@
+## author : prajithparammal@gmail.com
+## Version : 1.0
+- name: Install and configure AD authentication
+  hosts: all_linux
+  vars_prompt:
+    - name: "bind_password"
+      prompt: "Password for AD admin user"
+      private: yes
+  vars_files:
+    - ./answer_file
+
+###############################################
+  tasks:
+    - name: Install necessary rpms for sssd config
+      yum:
+        name: libselinux-python,realmd,oddjob,oddjob-mkhomedir,sssd,adcli,samba-common-tools
+        state: present
+
+###############################################
+    - name: Check if machine is bound
+      shell: /bin/bash -c "getent passwd  {{ ad_login_test_user }}@{{ addomain }} | grep {{ ad_login_test_user }}"
+      register: realmd_bound
+      changed_when: false
+      ignore_errors: true
+###############################################
+    - name: leaving Realm
+      command: /bin/bash -c "realm leave"
+      when: realmd_bound|failed
+      ignore_errors: true
+###############################################
+    - name: Removing existing config files
+      file:
+        path: "{{ item }}"
+        state: absent
+      with_items:
+        - /etc/krb5.keytab
+        - /var/lib/sss/db/*
+        - /var/log/sssd/*
+        - /etc/sssd/sssd.conf
+        - /etc/sudoers.d/installSssd
+      when: realmd_bound|failed
+###############################################
+    - name: Copy Pam.d files
+      copy: src={{ item.src }} dest={{ item.dest }}
+      with_items:
+        - { src: '/etc/pam.d/system-auth-ac', dest: '/etc/pam.d/system-auth-ac.0' }
+        - { src: '/etc/pam.d/password-auth-ac', dest: '/etc/pam.d/password-auth-ac.0' }
+      when: realmd_bound|failed
+      ignore_errors: true
+###############################################
+    - name: Creating symlink system-auth and password-auth
+      file: src={{ item.src }} dest={{ item.dest }} state=link
+      with_items:
+        - { src: '/etc/pam.d/system-auth-ac', dest: '/etc/pam.d/system-auth' }
+        - { src: '/etc/pam.d/password-auth-ac', dest: '/etc/pam.d/password-auth' }
+      when: realmd_bound|failed
+      ignore_errors: true
+###############################################
+    - name: Join system to AD and put the computer object in the Linux OU
+      command: /bin/bash -c "echo {{ bind_password }} | realm join --user={{ ad_join_admin }} {{ addomain }} && sleep 10"
+      no_log: True
+      when: realmd_bound|failed
+###############################################
+    - name: Stopping sssd service
+      service:
+        name: sssd
+        state: stopped
+      when: realmd_bound|failed
+###############################################
+    - name: Removing logs and db files
+      file:
+        path: "{{ item }}"
+        state: absent
+      with_items:
+        - /var/lib/sss/db/*
+        - /var/log/sssd/*
+      when: realmd_bound|failed
+###############################################
+    - name: Adding DOmain SID to sssd.conf
+      blockinfile:
+        path: /etc/sssd/sssd.conf
+        block: |
+          ldap_idmap_default_domain_sid={{ domainsid }}
+          dyndns_update = false
+          ldap_use_tokengroups = True
+          ldap_group_nesting_level = 0
+          ldap_groups_use_matching_rule_in_chain = True
+          ldap_initgroups_use_matching_rule_in_chain = True
+      notify:
+        - restart sssd
+###############################################
+    - name: Setting default domain to login
+      lineinfile:
+        dest: /etc/sssd/sssd.conf
+        line: 'default_domain_suffix = {{ addomain }}'
+        insertafter: '^\[sssd\]'
+###############################################
+    - name: Starting sssd
+      service:
+        name: sssd
+        state: started
+        enabled: yes
+      when: realmd_bound|failed
+###############################################
+    - name: Restrict access based on specific ad group
+      command: /bin/bash -c "/usr/sbin/realm permit -g {{ group_list }}"
+      notify:
+        - restart sssd
+
+    - name: Clearing and updating sssd sudo groups
+      file:
+        path: /etc/sudoers.d/installSssd
+        state: absent
+
+    - name: Add sudoers groups for cassandra systems
+      lineinfile:
+        dest: /etc/sudoers.d/installSssd
+        line: "%{{ item }}@{{ addomain }} ALL=(ALL) NOPASSWD: ALL"
+        create: yes
+      with_items: "{{ all_cassandra_sudo_list }}"
+      when: inventory_hostname in groups['all_cassandra']
+      ignore_errors: true
+
+    - name: Add sudoers groups for ora db systems
+      lineinfile:
+        dest: /etc/sudoers.d/installSssd
+        line: "%{{ item }}@{{ addomain }} ALL=(ALL) NOPASSWD: ALL"
+        create: yes
+      with_items: "{{ oracle_sudo_list }}"
+      when: inventory_hostname in groups['oracle']
+      ignore_errors: true
+
+    - name: Add sudoers groups for ora db systems
+      lineinfile:
+        dest: /etc/sudoers.d/installSssd
+        line: "%{{ item }}@{{ addomain }} ALL=(ALL) NOPASSWD: ALL"
+        create: yes
+      with_items: "{{ wave1_sudo_list }}"
+      when: inventory_hostname in groups['wave1']
+      ignore_errors: true
+
+    - name: Add sudoers groups for ora db systems
+      lineinfile:
+        dest: /etc/sudoers.d/installSssd
+        line: "%{{ item }}@{{ addomain }} ALL=(ALL) NOPASSWD: ALL"
+        create: yes
+      with_items: "{{ ldap_sudo_list }}"
+      when: inventory_hostname in groups['ldap']
+      ignore_errors: true
+
+    - name: Add sudoers groups for ora db systems
+      lineinfile:
+        dest: /etc/sudoers.d/installSssd
+        line: "%{{ item }}@{{ addomain }} ALL=(ALL) NOPASSWD: ALL"
+        create: yes
+      with_items: "{{ wave2_sudo_list }}"
+      when: inventory_hostname in groups['wave2']
+      ignore_errors: true
+
+
+###############################################
+    - name: configure root history by SUDOER
+      blockinfile:
+        path: /root/.bashrc
+        block: |
+          HISTFILE="$HOME/.bash_history_${SUDO_USER}_$(date '+%F_%T')"
+          export HISTFILE
+      when: realmd_bound|failed
+###############################################
+  handlers:
+    - name: restart sssd
+      service:
+        name: sssd
+        state: restarted

@@ -20,3 +20,8 @@ Registering system to Red Hat Subscription Manager.
 
 ## [user-management](user-management)
 Ansible scripts to manage local users on Linux systems.
+
+___
+
+### [installing_sssd](installing_sssd)
+Borrowed from the web. (Couldn't quite find their repos.) And wanted to safe keep it on my own repo.

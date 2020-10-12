@@ -1,5 +1,6 @@
 ---
-- hosts: all
+- name: Examples of copy authkeys from users/nonusers on control node
+  hosts: all
   remote_user: ansible_user
   become: yes
   become_method: sudo

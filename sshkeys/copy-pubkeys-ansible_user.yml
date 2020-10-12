@@ -1,5 +1,6 @@
 ---
-- hosts: all
+- name: Copy the Ansible user's pubkeys from its own .ssh file to remote
+  hosts: all
   remote_user: ansible_user
   become: yes
   become_method: sudo
