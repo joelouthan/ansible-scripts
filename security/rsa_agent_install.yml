@@ -15,18 +15,18 @@
       group: root
       mode: '0755'
 
-  - name: Copy sdconf.rec from git repo into /var/ace
+  - name: Copy sd_pam.conf from git repo into /etc
     get_url:
       url: http://al1xvftsat01.gmssup.com/pulp/isos/Vendor_Support/Library/custom/VSE-COTS/NonRPMS/sd_pam.conf
-      dest: /var/ace/sdconf.rec
+      dest: /etc/sd_pam.conf
       owner: root
       group: root
       mode: '0644'
 
-  - name: Copy sd_pam.conf from into /var/ace
+  - name: Copy sdconf.rec from into /var/ace
     get_url:
       url: http://al1xvftsat01.gmssup.com/pulp/isos/Vendor_Support/Library/custom/VSE-COTS/NonRPMS/sdconf.rec
-      dest: /etc/sd_pam.conf
+      dest: /var/ace/sdconf.rec
       owner: root
       group: root
       mode: '0644'
