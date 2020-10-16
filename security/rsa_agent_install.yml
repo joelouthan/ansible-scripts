@@ -46,20 +46,20 @@
       path: /etc/pam.d/sshd
       line: "auth       sufficient   pam_securid.so"
       insertafter: '^\#\%PAM-1\.0'
-      
+
   - name: Add auth sufficient pam_securid.so to /etc/sudo
     lineinfile:
       path: /etc/sudo
       line: "auth       sufficient   pam_securid.so"
       insertafter: '^\#\%PAM-1\.0'
-  
+
   - name: Comment out auth       include      system-auth
     lineinfile:
       path: /etc/sudo
       regexp: '^auth\s.*include\s.*system-auth'
       state: present
       line: "#auth       sufficient   pam_securid.so"
-  
+
   - name: Create a symlink to the pam_securid.so
     file:
       src: /opt/pam/lib/64bit/pam_securid.so
