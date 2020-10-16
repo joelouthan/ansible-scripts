@@ -33,38 +33,38 @@
       group: root
       mode: '0644'
 
-- name: Unarchive sd_pam_agent.tar into /opt on remote and check for pam_securid.so
-  unarchive:
-    src: http://al1xvftsat01.gmssup.com/pulp/isos/Vendor_Support/Library/custom/VSE-COTS/NonRPMS/sd_pam_agent.tar
-    dest: /opt
-    creates: /opt/pam/lib/64bit/pam_securid.so
-    owner: root
-    group: root
+  - name: Unarchive sd_pam_agent.tar into /opt on remote and check for pam_securid.so
+    unarchive:
+     src: http://al1xvftsat01.gmssup.com/pulp/isos/Vendor_Support/Library/custom/VSE-COTS/NonRPMS/sd_pam_agent.tar
+     dest: /opt
+     creates: /opt/pam/lib/64bit/pam_securid.so
+     owner: root
+     group: root
 
-- name: Add auth sufficient pam_securid.so to /etc/pam.d/sshd
-  lineinfile:
-    path: /etc/pam.d/sshd
-    line: "auth       sufficient   pam_securid.so"
-    insertafter: '^\#\%PAM-1\.0'
-    
-- name: Add auth sufficient pam_securid.so to /etc/sudo
-  lineinfile:
-    path: /etc/sudo
-    line: "auth       sufficient   pam_securid.so"
-    insertafter: '^\#\%PAM-1\.0'
-
-- name: Comment out auth       include      system-auth
-  lineinfile:
-    path: /etc/sudo
-    regexp: '^auth\s.*include\s.*system-auth'
-    state: present
-    line: "#auth       sufficient   pam_securid.so"
-
-- name: Create a symlink to the pam_securid.so
-  file:
-    src: /opt/pam/lib/64bit/pam_securid.so
-    dest: /lib64/security/pam_securid.so
-    owner: root
-    group: root
-    state: link
+  - name: Add auth sufficient pam_securid.so to /etc/pam.d/sshd
+    lineinfile:
+      path: /etc/pam.d/sshd
+      line: "auth       sufficient   pam_securid.so"
+      insertafter: '^\#\%PAM-1\.0'
+      
+  - name: Add auth sufficient pam_securid.so to /etc/sudo
+    lineinfile:
+      path: /etc/sudo
+      line: "auth       sufficient   pam_securid.so"
+      insertafter: '^\#\%PAM-1\.0'
+  
+  - name: Comment out auth       include      system-auth
+    lineinfile:
+      path: /etc/sudo
+      regexp: '^auth\s.*include\s.*system-auth'
+      state: present
+      line: "#auth       sufficient   pam_securid.so"
+  
+  - name: Create a symlink to the pam_securid.so
+    file:
+      src: /opt/pam/lib/64bit/pam_securid.so
+      dest: /lib64/security/pam_securid.so
+      owner: root
+      group: root
+      state: link
 ...
