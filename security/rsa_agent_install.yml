@@ -17,7 +17,7 @@
 
   - name: Copy sd_pam.conf from git repo into /etc
     get_url:
-      url: http://al1xvftsat01.gmssup.com/pulp/isos/Vendor_Support/Library/custom/VSE-COTS/NonRPMS/sd_pam.conf
+      url: http://url/path/to/file.txt
       dest: /etc/sd_pam.conf
       owner: root
       group: root
@@ -25,7 +25,7 @@
 
   - name: Copy sdconf.rec from into /var/ace
     get_url:
-      url: http://al1xvftsat01.gmssup.com/pulp/isos/Vendor_Support/Library/custom/VSE-COTS/NonRPMS/sdconf.rec
+      url: http://url/path/to/file.txt
       dest: /var/ace/sdconf.rec
       owner: root
       group: root
@@ -33,7 +33,7 @@
 
   - name: Unarchive sd_pam_agent.tar into /opt on remote and check for pam_securid.so
     unarchive:
-     src: http://al1xvftsat01.gmssup.com/pulp/isos/Vendor_Support/Library/custom/VSE-COTS/NonRPMS/sd_pam_agent.tar
+     src: http://url/path/to/file.tar
      dest: /opt
      creates: /opt/pam/lib/64bit/pam_securid.so
      owner: root
