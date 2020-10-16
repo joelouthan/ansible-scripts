@@ -5,21 +5,22 @@
   become: yes
   become_method: sudo
   
+  vars:
+    usernames:
+      - username1
+      - username2
+  
   tasks:
   - name: Remove current authkey file
     authorized_key:
       user: "{{ item }}"
       state: present
-    loop:
-    - username1
-    - username2
+    loop: "{{ usernames }}"
     
   - name: Set authorized key took from file
     authorized_key:
       user: "{{ item }}"
       state: present
       key: "{{ lookup('file', 'pubkeys/{{ item }}.pub') }}"
-    loop:
-    - username1
-    - username2
+    loop: "{{ usernames }}"
 ...

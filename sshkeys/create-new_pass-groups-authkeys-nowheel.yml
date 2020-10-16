@@ -5,6 +5,13 @@
   become: yes
   become_method: sudo
   
+  vars:
+    usernames:
+      - username1
+      - username2
+    passwords:
+      - '$6$rounds: 656000$4lIYx7DL2AKRyR4S$GJqDsT0jlHmdB2D6vtAVGS4O5VmmhEBWxu21a.dSpbRF9ajsosoO4mHbRfdgeuzPmWPXhe9gITiUfAC2/uxCW1'
+
   tasks:
   - name: Create group
     group: 
@@ -13,24 +20,22 @@
     
   - name: Create users
     user: 
-      name: "{{  item.name  }}"
+      name: "{{ usernames }}"
       state: present 
-      password: "{{  item.pass  }}"
+      password: "{{ passwords }}"
       shell: '/bin/bash'
       append: yes 
       groups: devs
     loop:
-      name: 'username'
-      pass: '$6$rounds: 656000$4lIYx7DL2AKRyR4S$GJqDsT0jlHmdB2D6vtAVGS4O5VmmhEBWxu21a.dSpbRF9ajsosoO4mHbRfdgeuzPmWPXhe9gITiUfAC2/uxCW1'
+      name: "{{ usernames }}"
+      pass: "{{ passwords }}"
 
     # created with
     # python -c "from passlib.hash import sha512_crypt; import getpass; print sha512_crypt.encrypt(getpass.getpass())"
     
   - name: Expire account
     command: "chage -I 30 -M 60 {{  item  }}"
-    loop:
-    - username1
-    - username2
+    loop: "{{ usernames }}"
     
   - name: Set authorized key took from file
     authorized_key:

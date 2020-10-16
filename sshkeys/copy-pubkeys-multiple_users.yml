@@ -4,6 +4,11 @@
   remote_user: ansible_user
   become: yes
   become_method: sudo
+
+  vars:
+    usernames:
+      - username1
+      - username2  
   
   tasks:
   - name: Set authorized key took from file
@@ -11,9 +16,7 @@
       user: "{{ item }}"
       state: present
       key: "{{ lookup('file', '/home/{{ item }}/.ssh/id_rsa.pub') }}"
-    loop:
-    - username1
-    - username2
+    loop: "{{ usernames }}"
   
   ## If your users don't have accounts on the control node itself, my suggestion
   ## is to create a subdirectory 'pubkeys' and then place the pubkeys in that dir
@@ -23,7 +26,5 @@
       user: "{{ item }}"
       state: present
       key: "{{ lookup('file', 'pubkeys/{{ item }}.pub') }}"
-    loop:
-    - username1
-    - username2
+    loop: "{{ usernames }}"
 ...
