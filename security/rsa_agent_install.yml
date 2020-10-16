@@ -19,7 +19,6 @@
     get_url:
       url: http://al1xvftsat01.gmssup.com/pulp/isos/Vendor_Support/Library/custom/VSE-COTS/NonRPMS/sd_pam.conf
       dest: /var/ace/sdconf.rec
-      state: present
       owner: root
       group: root
       mode: '0644'
@@ -28,7 +27,6 @@
     get_url:
       url: http://al1xvftsat01.gmssup.com/pulp/isos/Vendor_Support/Library/custom/VSE-COTS/NonRPMS/sdconf.rec
       dest: /etc/sd_pam.conf
-      state: present
       owner: root
       group: root
       mode: '0644'
