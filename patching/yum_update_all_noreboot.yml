@@ -1,5 +1,5 @@
 ---
-- name: Do a yum update all but do not reboot
+- name: Do a yum update (no reboots)
   hosts: all
   remote_user: awxsvc
   become: true
