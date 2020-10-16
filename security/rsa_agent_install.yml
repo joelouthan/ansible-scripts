@@ -38,6 +38,7 @@
      creates: /opt/pam/lib/64bit/pam_securid.so
      owner: root
      group: root
+     remote_src: yes
 
   - name: Add auth sufficient pam_securid.so to /etc/pam.d/sshd
     lineinfile:
@@ -47,13 +48,13 @@
 
   - name: Add auth sufficient pam_securid.so to /etc/sudo
     lineinfile:
-      path: /etc/sudo
+      path: /etc/pam.d/sudo
       line: "auth       sufficient   pam_securid.so"
       insertafter: '^\#\%PAM-1\.0'
 
   - name: Comment out auth       include      system-auth
     lineinfile:
-      path: /etc/sudo
+      path: /etc/pam.d/sudo
       regexp: '^auth\s.*include\s.*system-auth'
       state: present
       line: "#auth       sufficient   pam_securid.so"
