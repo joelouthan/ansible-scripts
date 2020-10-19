@@ -1,7 +1,7 @@
 ---
 - name: Install splunk forwarder
   hosts: all
-  remote_user: awxsvc
+  remote_user: ansible_user
   become: yes
   become_method: sudo
   become_user: root
