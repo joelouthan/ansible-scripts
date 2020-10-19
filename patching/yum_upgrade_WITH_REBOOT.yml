@@ -1,7 +1,6 @@
 ---
-- name: Do a yum update (no reboots)
+- name: Do a yum update WITH REBOOTS
   hosts: all
-  remote_user: awxsvc
   become: true
   become_method: sudo
   become_user: root
@@ -15,4 +14,7 @@
     yum:
       name: '*'
       state: latest
+
+  - name: REBOOTING
+    reboot:
 ...
