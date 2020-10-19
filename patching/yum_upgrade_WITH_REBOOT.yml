@@ -1,5 +1,5 @@
 ---
-- name: Do a yum update (no reboots)
+- name: Do a yum update WITH REBOOTS
   hosts: all
   become: true
   become_method: sudo
@@ -14,4 +14,7 @@
     yum:
       name: '*'
       state: latest
+
+  - name: REBOOTING
+    reboot:
 ...
