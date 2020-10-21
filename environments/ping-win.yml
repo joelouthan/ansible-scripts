@@ -1,0 +1,9 @@
+---
+- name: Ping all servers
+  hosts: win
+  remote_user: ansible_user
+
+  tasks: 
+  - name: Test connection
+    ping: 
+...
