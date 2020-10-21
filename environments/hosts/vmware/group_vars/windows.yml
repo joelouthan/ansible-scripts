@@ -1,0 +1,2 @@
+ansible_connection: winrm
+ansible_winuser: s_ansible_windows_p
