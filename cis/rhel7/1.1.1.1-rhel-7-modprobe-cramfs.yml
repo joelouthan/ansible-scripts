@@ -6,11 +6,11 @@
   
   tasks:
   - name: Ensure kernel module 'cramfs' is disabled
-    lineinfile:
-      create: true
-      dest: /etc/modprobe.d/cramfs.conf
-      regexp: cramfs
-      line: install cramfs /bin/true
+    shell: lsmod | grep cramfs
+    register: lsmod
+    failed_when: "lsmod.rc == 2"
+    check_mode: no
+    changed_when: false
     tags:
       - kernel_module_cramfs_disabled
       - low_severity
