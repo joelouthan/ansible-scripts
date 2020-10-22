@@ -1,17 +1,15 @@
 ---
 - name: "RHEL 7 CIS 1.1.1.1 - The cramfs filesystem type is a compressed read-only Linux filesystem embedded in small footprint systems. A cramfs image can be used without having to first decompress the image."
-  hosts: linux
+  hosts: rhel
+  gather_facts: no
   #remote_user: ansible.linux
   
   tasks:
-  - name: 1.1.1.1 Disable Mounting of cramfs Filesystems (Not Scored)
-    shell: /sbin/modprobe -n -v cramfs | grep -E '(cramfs|install)'
-    register: cramfs_results
-
   - name: Check to see if cramfs is loaded
-    shell: lsmod | grep cramfs
-    when: cramfs_results.stdout.find('cramfs') != -1
+    shell: /sbin/lsmod | grep cramfs
+    register: lsmod_cramfs
+    failed_when: lsmod_cramfs.stdout == 1
 
   - debug:
-      msg: "{{ cramfs_results.stdout_lines }}"
+      msg: "{{ lsmod_cramfs.stdout_lines }}"
 ...
