@@ -10,5 +10,4 @@
 
   - debug:
       msg: "{{ results.stdout_lines }}"
-      verbosity: 4
 ...
