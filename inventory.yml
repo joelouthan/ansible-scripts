@@ -1,0 +1,7 @@
+all:
+  children:
+    nodes:
+      hosts:
+        cliffjumper: {}
+        tower0204: {}
+    ungrouped: {}
