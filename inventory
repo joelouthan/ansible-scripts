@@ -1,3 +1,11 @@
-[nodes]
+[all]
 tower0204
 cliffjumper
+ironhide
+
+[linux]
+tower0204
+cliffjumper
+
+[macos]
+ironhide
