@@ -1,6 +1,6 @@
 ---
 - name: Do a yum update WITH REBOOTS
-  hosts: all
+  hosts: bumblebee
   become: true
   become_method: sudo
   become_user: root

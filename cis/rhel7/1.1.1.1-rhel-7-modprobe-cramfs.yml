@@ -5,14 +5,10 @@
   
   tasks:
   - name: 1.1.1.1 Disable Mounting of cramfs Filesystems (Not Scored)
-    shell: /sbin/modprobe -n -v cramfs #| grep -E '(cramfs|install)'
-    register: result
-  #tags:
-  #- notscored
-  #- section1.1
-  #- section1.1.18
+    shell: /sbin/modprobe -n -v cramfs | grep -E '(cramfs|install)'
+    register: results
 
   - debug:
-      var: result
-      verbosity: 2
+      msg: "{{ results.stdout_lines }}"
+      verbosity: 4
 ...
