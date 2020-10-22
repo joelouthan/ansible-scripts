@@ -6,8 +6,12 @@
   tasks:
   - name: 1.1.1.1 Disable Mounting of cramfs Filesystems (Not Scored)
     shell: /sbin/modprobe -n -v cramfs | grep -E '(cramfs|install)'
-    register: results
+    register: cramfs_results
+
+  - name: Check to see if cramfs is loaded
+    shell: lsmod | grep cramfs
+    when: cramfs_results.stdout.find('cramfs') != -1
 
   - debug:
-      msg: "{{ results.stdout_lines }}"
+      msg: "{{ cramfs_results.stdout_lines }}"
 ...
