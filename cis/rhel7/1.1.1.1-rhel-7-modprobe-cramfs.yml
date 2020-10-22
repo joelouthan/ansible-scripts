@@ -9,7 +9,6 @@
     shell: lsmod | grep cramfs
     register: lsmod
     failed_when: "lsmod.rc == 2"
-    check_mode: no
     changed_when: false
     tags:
       - kernel_module_cramfs_disabled
