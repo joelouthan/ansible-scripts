@@ -1,7 +1,18 @@
 all:
   children:
-    nodes:
+    linux:
+      hosts:
+        bumblebee: {}
+        cliffjumper: {}
+        tower0204: {}
+    macos:
+      hosts:
+        ironhide: {}
+    rhel:
       hosts:
         cliffjumper: {}
         tower0204: {}
     ungrouped: {}
+vars:
+  ansible_rhel_user: jlouthan
+...
