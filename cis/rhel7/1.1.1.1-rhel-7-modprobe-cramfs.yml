@@ -5,7 +5,7 @@
   
   tasks:
   - name: Ensure kernel module 'cramfs' is disabled
-    shell: lsmod | grep cramfs
+    shell: lsmod | grep dm_region_hash
     register: lsmod
     failed_when: "lsmod.rc != 1"
     changed_when: false
