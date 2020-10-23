@@ -6,4 +6,6 @@
   tasks:
   include_role:
     name: cis_rhel_7
+    tasks_from:
+    - 1.1.1_rhel_7_audit_disabled_unused_filesystems_check_mode
 ...
