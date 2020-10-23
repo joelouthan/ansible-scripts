@@ -1,7 +1,6 @@
 ---
 - name: "RHEL 7 CIS 1.1.1.2 - The squashfs filesystem type is a compressed read-only Linux filesystem embedded in small footprint systems (similar to cramfs ). A squashfs image can be used without having to first decompress the image."
   hosts: rhel
-  gather_facts: no
   
   tasks:
   - name: Ensure kernel module 'squashfs' is disabled

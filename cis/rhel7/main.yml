@@ -1,6 +1,5 @@
 - name: "CIS Audit RHEL7 servers"
   hosts: rhel
-  gather_facts: no
   #remote_user: "{{ ansible_rhel_user }}"
 
   include_tasks:

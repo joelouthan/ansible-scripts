@@ -1,6 +1,5 @@
 - name: Run OSCAP, 
   hosts: rhel
-  gather_facts: no
   #remote_user: "{{ ansible_rhel_user }}"
 
   vars:
