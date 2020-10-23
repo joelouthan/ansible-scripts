@@ -1,0 +1,9 @@
+---
+- name: "CIS Benchmarking for RHEL 7"
+  hosts: rhel
+  check_mode: yes
+  
+  tasks:
+  include_role:
+    name: cis_rhel_7
+...
