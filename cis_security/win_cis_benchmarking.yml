@@ -1,0 +1,11 @@
+---
+- name: CIS Benchmarking for Windows
+  hosts: rhel
+  check_mode: yes
+  
+  tasks:
+  - name: Running CIS Benchmark for Windows
+    include_role:
+      name: cis_win
+      tags: always
+...
