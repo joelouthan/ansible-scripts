@@ -1,0 +1,26 @@
+---
+- name: "RHEL 7 CIS 1.1.1.1 - The cramfs filesystem type is a compressed read-only Linux filesystem embedded in small footprint systems. A cramfs image can be used without having to first decompress the image."
+  hosts: rhel
+  gather_facts: no
+  
+  tasks:
+  - name: Ensure kernel module 'cramfs' is disabled
+    lineinfile:
+      create: true
+      dest: /etc/modprobe.d/cramfs.conf
+      regexp: cramfs
+      line: install cramfs /bin/true
+    check_mode: yes
+    tags:
+      - kernel_module_cramfs_disabled
+      - low_severity
+      - disable_strategy
+      - low_complexity
+      - medium_disruption
+      - reboot_required
+      - CCE-80137-3
+      - NIST-800-53-CM-7(a)
+      - NIST-800-53-CM-7(b)
+      - NIST-800-53-CM-6(a)
+      - NIST-800-171-3.4.6
+...
