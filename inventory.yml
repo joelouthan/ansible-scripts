@@ -1,5 +1,8 @@
 all:
   children:
+    servicenow:
+      hosts:
+        paclife.service-now.com: {}
     linux:
       hosts:
         bumblebee: {}
@@ -12,6 +15,9 @@ all:
       hosts:
         cliffjumper: {}
         tower0204: {}
+    fedora:
+      hosts:
+        bumblebee: {}
     ungrouped: {}
 vars:
   ansible_rhel_user: jlouthan
