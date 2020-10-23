@@ -1,13 +1,24 @@
 ---
 - name: "RHEL 7 CIS 1.1.1.2 - The squashfs filesystem type is a compressed read-only Linux filesystem embedded in small footprint systems (similar to cramfs ). A squashfs image can be used without having to first decompress the image."
-  hosts: linux
+  hosts: rhel
   #remote_user: ansible.linux
   
   tasks:
-  - name: "Ensure mounting of squashfs filesystems is disabled (Automatic)"
-    shell: modprobe -n -v squashfs | grep -E '(squashfs|install)'
-    register: results
-
-  - debug:
-      msg: "{{ results.stdout_lines }}"
+  - name: Ensure kernel module 'squashfs' is disabled
+    shell: lsmod | grep squashfs
+    register: lsmod
+    failed_when: "lsmod.rc != 1"
+    changed_when: false
+    tags:
+      - kernel_module_squashfs_disabled
+      - low_severity
+      - disable_strategy
+      - low_complexity
+      - medium_disruption
+      - reboot_required
+      - CCE-80137-3
+      - NIST-800-53-CM-7(a)
+      - NIST-800-53-CM-7(b)
+      - NIST-800-53-CM-6(a)
+      - NIST-800-171-3.4.6
 ...

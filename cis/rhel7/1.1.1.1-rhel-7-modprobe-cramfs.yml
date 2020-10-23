@@ -8,7 +8,7 @@
   - name: Ensure kernel module 'cramfs' is disabled
     shell: lsmod | grep cramfs
     register: lsmod
-    failed_when: "lsmod.rc == 2"
+    failed_when: "lsmod.rc != 1"
     changed_when: false
     tags:
       - kernel_module_cramfs_disabled
