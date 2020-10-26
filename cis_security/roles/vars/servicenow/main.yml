@@ -1,0 +1,18 @@
+---
+# proxy environments
+proxy_env: http://plproxy.pacificlife.net:8080
+
+# snow_record variables
+sn_username: Prod.SplunkRest@pacificlife.com
+sn_password: !vault | 
+        blahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblah
+        blahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblah
+        blahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblah
+        blahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblah
+        blahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblahblah
+sn_instance: paclifedev
+
+#data variables
+sn_severity: 2
+sn_priority: 2
+...
