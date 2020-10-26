@@ -2,6 +2,9 @@
 - name: Testing ServiceNow connectivity through proxy
   hosts: servicenow
   gather_facts: no
+  environment:
+    http_proxy: http://plproxy.pacificlife.net:8080
+    https_proxy: http://plproxy.pacificlife.net:8080
 # connections:
 # - servicenow.servicenow
 
@@ -14,8 +17,6 @@
       state: present
       table: sys_user
       lookup_field: sys_id
-    environment:
-        https_proxy: http://plproxy.pacificlife.net:8080
     
   - name: Search for incident assigned to group, return specific fields
     snow_record_find:
