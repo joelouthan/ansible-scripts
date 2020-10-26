@@ -5,6 +5,5 @@
   - name: ServiceNow - Finding a Ticket
     include_tasks: finding_ticket.yml
   
-  - name: ServiceNow - Creating a Ticket
-    include_tasks: creating_ticket.yml
+  - name: ServiceNow - Creating a
 ---
