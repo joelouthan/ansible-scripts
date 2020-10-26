@@ -1,15 +1,12 @@
 ---
 - name: Testing ServiceNow connectivity through proxy
-  hosts: servicenow
-  gather_facts: no
+  hosts: localhost
+  connection: local
   environment:
     http_proxy: "{{ proxy_env }}"
     https_proxy: "{{ proxy_env }}"
 
   tasks:
-  - name: include vars
-    include_vars: servicenow/main.yml
-
   - name: Grab a user record
     snow_record:
       username: "{{ sn_username }}"
