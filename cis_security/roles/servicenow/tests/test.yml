@@ -1,5 +1,7 @@
 ---
 - hosts: localhost
-  remote_user: root
-  roles:
-    - servicenow
+  connection: local
+  experience:
+    http_proxy: "{{ proxy_env }}"
+  
+  roles: servicenow

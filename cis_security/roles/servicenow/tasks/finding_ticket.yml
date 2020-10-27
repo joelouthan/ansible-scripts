@@ -1,14 +1,5 @@
 ---
-- name: Grab a user record
-  snow_record:
-    username: "{{ sn_username }}"
-    password: "{{ sn_password }}"
-    instance: "{{ sn_instance }}"
-    state: present
-    table: sys_user
-    lookup_field: sys_id
-  
-- name: Search for incident assigned to group, return specific fields
+- name: ServiceNow - Search for incident assigned to group, return specific fields
   snow_record_find:
     username: "{{ sn_username }}"
     password: "{{ sn_password }}"
