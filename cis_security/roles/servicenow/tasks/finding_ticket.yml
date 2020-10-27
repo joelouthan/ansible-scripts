@@ -1,30 +1,22 @@
 ---
-- name: Testing ServiceNow connectivity through proxy
-  hosts: localhost
-  connection: local
-  environment:
-    http_proxy: "{{ proxy_env }}"
-    https_proxy: "{{ proxy_env }}"
-
-  tasks:
-  - name: Grab a user record
-    snow_record:
-      username: "{{ sn_username }}"
-      password: "{{ sn_password }}"
-      instance: "{{ sn_instance }}"
-      state: present
-      table: sys_user
-      lookup_field: sys_id
-    
-  - name: Search for incident assigned to group, return specific fields
-    snow_record_find:
-      username: "{{ sn_username }}"
-      password: "{{ sn_password }}"
-      instance: "{{ sn_instance }}"
-      table: incident
-      query:
-        assignment_group: d625dccec0a8016700a222a0f7900d06
-      return_fields:
-        - number
-        - opened_at
+- name: Grab a user record
+  snow_record:
+    username: "{{ sn_username }}"
+    password: "{{ sn_password }}"
+    instance: "{{ sn_instance }}"
+    state: present
+    table: sys_user
+    lookup_field: sys_id
+  
+- name: Search for incident assigned to group, return specific fields
+  snow_record_find:
+    username: "{{ sn_username }}"
+    password: "{{ sn_password }}"
+    instance: "{{ sn_instance }}"
+    table: incident
+    query:
+      assignment_group: d625dccec0a8016700a222a0f7900d06
+    return_fields:
+      - number
+      - opened_at
 ...
