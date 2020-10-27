@@ -8,5 +8,5 @@
   include_role:
     name: servicenow
     tasks_from:
-    - find_user
-    - finding_ticket
+    - creating_ticket
+...
