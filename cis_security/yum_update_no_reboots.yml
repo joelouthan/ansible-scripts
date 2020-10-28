@@ -1,0 +1,14 @@
+---
+- name: yum update servers (no reboots)
+  hosts: rhel
+  #'any_errors_fatal: false' This is a bit redundant because it is set to default in
+  # Ansible. Essentially, by default, do not stop the playbook if it fails on one. If this is set to true, it will stop on one error.
+  any_errors_fatal: false
+
+  tasks:
+  - name: Call on patching role and run yum_update (will not reboot)
+    include_role: 
+      name: patching
+      tasks_from:
+      - yum_update
+...
