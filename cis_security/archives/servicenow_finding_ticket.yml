@@ -1,0 +1,28 @@
+---
+- hosts: localhost
+  connection: local
+  environment:
+    http_proxy: http://plproxy.pacificlife.net:8080
+    https_proxy: http://plproxy.pacificlife.net:8080
+
+  tasks:
+  - name: Search for incident assigned to group, return specific fields
+    snow_record_find:
+      username: Prod.SplunkRest@pacificlife.com
+      password: !vault |
+        $ANSIBLE_VAULT;1.1;AES256
+        31363765353330343739646363333039633664313834303666626163363835356238633639323433
+        3166353035616265373231386139386138363830363439620a643831633663663233383839363231
+        39333239386262323232333732376561616130663832633131626239343533336231356438633430
+        6261663031333031320a373831613731323339303766643366663863653532353932613162333133
+        35383839386635666237653635366563323239313661343431386236323661396566
+        
+      instance: paclifedev
+      table: incident
+      query:
+        assignment_group: f32ae02b1be10cd0532d6288bd4bcb13
+      return_fields:
+        - number
+        - opened_at
+        - short_description
+...
