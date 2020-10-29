@@ -3,7 +3,8 @@
   dnf:
     name: '*'
     state: latest
-  become: yes
-  become_method: sudo
-  check_mode: yes
+    use_backend: yum
+  become: true
+  #become_method: sudo
+  #become_exe: "sudo su - /bin/bash -c"
 ...
