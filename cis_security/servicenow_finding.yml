@@ -1,13 +1,16 @@
 ---
-- name: ServiceNow
+- name: ServiceNow - Find Ticket
   hosts: localhost
   connection: local
-  experience:
-    http_proxy: "{{ proxy_env }}"
+  environment: "{{ pl_proxy }}"
 
-  include_role:
-    name: servicenow
-    tasks_from:
-    - find_user
-    - finding_ticket
+  tasks:
+  - name: Include servicenow role and find_ticket task
+    include_role: 
+      name: servicenow
+      tasks_from: find_ticket
+    vars:
+      sn_username: "{{ pl_snow_username }}"
+      sn_password: "{{ pl_snow_password }}"
+      sn_instance: "{{ pl_snow_instance }}"
 ...
