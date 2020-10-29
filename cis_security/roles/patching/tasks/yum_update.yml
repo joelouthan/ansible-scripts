@@ -1,6 +1,6 @@
 ---
 - name: Updating all packages
-  dnf:
+  yum:
     name: '*'
     state: latest
     use_backend: yum
