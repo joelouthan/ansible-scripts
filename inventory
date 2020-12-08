@@ -1,25 +1,8 @@
----
-all:
-  children:
-    servicenow:
-      hosts:
-        paclife.service-now.com: {}
-    linux:
-      hosts:
-        bumblebee: {}
-        cliffjumper: {}
-        tower0204: {}
-    macos:
-      hosts:
-        ironhide: {}
-    rhel:
-      hosts:
-        cliffjumper: {}
-        tower0204: {}
-    fedora:
-      hosts:
-        bumblebee: {}
-    ungrouped: {}
-vars:
-  ansible_rhel_user: jlouthan
-...
+[tower]
+tower1
+tower2
+tower3
+
+[db]
+db1
+db2
