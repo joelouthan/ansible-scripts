@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  gather_facts: false
+  gather_facts: true
 
   tasks:
   - name: Adding l as an alias because laziness
