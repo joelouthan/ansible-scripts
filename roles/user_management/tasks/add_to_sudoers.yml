@@ -19,11 +19,4 @@
     append: yes
     state: present
     create_home: yes
-
-- name: Set up authorized keys for the deployer user
-  authorized_key:
-    user: jlouthan 
-    key: "{{item}}"
-  with_file:
-    - /Users/jlouthan/.ssh/id_rsa.pub
 ...
