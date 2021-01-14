@@ -3,10 +3,13 @@
   gather_facts: true
 
   tasks:
-  - name: Include user_management role
+  - name: Include user_management/add_to_sudoers task
     include_role:
       name: user_management
-      tasks_from:
-        - add_to_sudoers
-        - add_to_alias
+      tasks_from: add_to_sudoers
+
+  - name: Include user_management/add_to_alias task
+    include_role:
+      name: user_management
+      tasks_from: add_to_alias
 ...
