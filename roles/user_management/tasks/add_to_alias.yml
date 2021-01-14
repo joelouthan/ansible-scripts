@@ -1,0 +1,21 @@
+---
+- name: Adding l as an alias because laziness for root
+  blockinfile:
+    path: /home/jlouthan/.bashrc
+    state: present
+    block: |
+      
+      # Aliases 
+      alias l="ls -la"
+      alias editbashrc="vim /home/jlouthan/.bashrc ; source /home/jlouthan/.bashrc"
+
+- name: Adding l as an alias because laziness for root
+  blockinfile:
+    path: /root/.bashrc
+    state: present
+    block: |
+      
+      # Aliases 
+      alias l="ls -la"
+      alias editbashrc="vim /home/jlouthan/.bashrc ; source /home/jlouthan/.bashrc"
+...

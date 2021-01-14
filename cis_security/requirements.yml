@@ -1,6 +1,0 @@
-# To install: ansible-galaxy collection install -r requirements.yml -p ./
-collections:
-  # Install a collection from Ansible Galaxy.
-  - name: servicenow.servicenow
-    version: 1.0.3-dev4
-    source: https://galaxy.ansible.com

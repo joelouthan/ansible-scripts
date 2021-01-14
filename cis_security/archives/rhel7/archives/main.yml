@@ -1,7 +1,0 @@
-- name: "CIS Audit RHEL7 servers"
-  hosts: rhel
-  #remote_user: "{{ ansible_rhel_user }}"
-
-  include_tasks:
-  - tasks/oscap.yml
-  - tasks/paclife.yml

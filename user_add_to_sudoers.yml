@@ -1,0 +1,12 @@
+---
+- hosts: linux
+  gather_facts: true
+
+  tasks:
+  - name: Include user_management role
+    include_role:
+      name: user_management
+      tasks_from:
+        - add_to_sudoers
+        - add_to_alias
+...

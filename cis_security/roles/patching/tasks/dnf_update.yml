@@ -1,9 +1,0 @@
----
-- name: Updating all packages
-  dnf:
-    name: '*'
-    state: latest
-  become: true
-  #become_method: sudo
-  #become_exe: "sudo su - /bin/bash -c"
-...

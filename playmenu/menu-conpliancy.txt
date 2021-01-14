@@ -1,5 +1,0 @@
-playbook1.yml
-playbook2.yml
-playbook3.yml
-playbook4.yml
-playbook5.yml

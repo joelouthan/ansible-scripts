@@ -1,7 +1,0 @@
----
-- include_tasks: find_user.yml
-
-- include_tasks: finding_ticket.yml
-
-- include_tasks: creating_ticket.yml
-...
