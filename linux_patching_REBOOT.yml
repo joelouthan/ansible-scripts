@@ -1,0 +1,10 @@
+---
+- hosts: linux
+  gather_facts: true
+
+  tasks:
+  - name: Include linux_patching/dnf_updates_REBOOT task
+    include_role:
+      name: linux_patching
+      tasks_from: dnf_updates_REBOOT
+...

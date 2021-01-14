@@ -1,0 +1,9 @@
+---
+- name: Updating all packages
+  dnf:
+    name: '*'
+    state: latest
+
+- name: REBOOTING
+  reboot:
+...
