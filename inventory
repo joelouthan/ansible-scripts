@@ -1,8 +1,17 @@
-[tower]
-tower1
-tower2
-tower3
+[linux]
+tower0204
+cliffjumper
+hound
+bumblebee
 
-[db]
-db1
-db2
+[macos]
+ironhide
+
+[linux:rhel]
+tower0204
+cliffjumper
+
+[linux:centos]
+hound
+[linux:fedora]
+bumblebee
