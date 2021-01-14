@@ -6,6 +6,7 @@ all:
         bumblebee: {}
         cliffjumper: {}
         tower0204: {}
+        hound: {}
     macos:
       hosts:
         ironhide: {}

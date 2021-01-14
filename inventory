@@ -1,18 +1,17 @@
-[linux]
-tower0204
-cliffjumper
-hound
-bumblebee
-
 [macos]
 ironhide
 
-[linux:rhel]
+[rhel]
 tower0204
 cliffjumper
 
-[linux:centos]
+[centos]
 hound
 
-[linux:fedora]
+[fedora]
 bumblebee
+
+[linux:children]
+rhel
+centos
+fedora
