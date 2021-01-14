@@ -3,8 +3,8 @@
   gather_facts: true
 
   tasks:
-  - name: Include linux_patching/dnf_upgrading_REBOOT task
+  - name: Include linux_patching/dnf_upgrading task
     include_role:
       name: linux_patching
-      tasks_from: dnf_upgrading_REBOOT
+      tasks_from: dnf_upgrading
 ...
