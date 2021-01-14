@@ -25,5 +25,5 @@
     user: jlouthan 
     key: "{{item}}"
   with_file:
-    - /home/jlouthan/.ssh/id_rsa.pub
+    - /Users/jlouthan/.ssh/id_rsa.pub
 ...
