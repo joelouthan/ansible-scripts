@@ -7,4 +7,4 @@
     include_role:
       name: linux_patching
       tasks_from: dnf_upgrading
-...
+---
